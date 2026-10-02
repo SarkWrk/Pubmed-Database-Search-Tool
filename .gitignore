@@ -3,4 +3,6 @@ out/
 wanted/
 export.py
 __pycache__/
-tojson.py
+.mypy_cach/
+.venv/
+csv_converter.py

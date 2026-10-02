@@ -5,26 +5,9 @@
         "wanted": "wanted"
     },
     "exclusion_criteria": {
-        "long_covid_names": [
-                "long covid.?\\d*",
-                "post.acute covid.?\\d*|post.acute sars.cov.?\\d*",
-                "post.acute of covid.?\\d*|post.acute of sars.cov.?\\d*",
-                "post.acute.sequelae covid.?\\d*|post.acute.sequelae sars.cov.?\\d*",
-                "post.acute.sequelae of covid.?\\d*|post.acute.sequelae of sars.cov.?\\d*",
-                "post.acute covid.?\\d* sequelae|post.acute sars.cov.?\\d* sequelae",
-                "long.haul covid.?\\d*",
-                "pasc",
-                "pacs",
-                "pcs"
+        "terms_1": [
         ],
-        "accepted_disease_terms": [
-            "aids",
-            "hiv",
-            "plwh",
-            "pwh",
-            "plwhiv",
-            "immunocomprom.*",
-            "immunodef.*"
+        "terms_2": [
         ]
     },
     "log_level": "None"

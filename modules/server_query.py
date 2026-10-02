@@ -36,7 +36,7 @@ retmax = queries["max_retrievals_per_get"]
 
 # Query the server for UIDs
 xml_output = {}
-for query in queries["new_query"]:
+for query in queries["new_queries"]:
     print("Querying: \"{}\"".format(query))
 
     modified_query = query.replace(" ", "+")
@@ -91,10 +91,16 @@ for content in xml_output:
 
         # Caution over the 3 queries per second limit
         time.sleep(0.5)
+    
+    output_text = ""
+    
+    for data in data_list:
+        output_text = output_text + data + "\n"
+    
+    data_hash = hash(output_text)
 
-    with open(path.join(path.join(dirname, output_path), "{}.txt".format(web_env)), "w+", encoding="UTF-8") as output_file:
+    with open(path.join(path.join(dirname, output_path), "{}.txt".format(data_hash)), "w+", encoding="UTF-8") as output_file:
         if log_level == "Debug":
             print("Writing to file")
 
-        for data in data_list:
-            output_file.write(data)
+        output_file.write(output_text)

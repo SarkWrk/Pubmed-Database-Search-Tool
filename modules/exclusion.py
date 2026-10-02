@@ -11,8 +11,8 @@ input_path = ""
 output_path = ""
 
 # Filter terms
-long_covid_names = [] # This is regex
-accepted_disease_terms = [] # This is regex
+terms_1_list = [] # This is regex
+terms_2_list = [] # This is regex
 
 # This is used to title the output .csv file
 dt = datetime.datetime.now()
@@ -44,11 +44,11 @@ with open(os.path.join(os.path.join(correct_dir, "settings"), "settings.json"), 
 
     exclusion_criteria = settings["exclusion_criteria"]
 
-    for criteria in exclusion_criteria["long_covid_names"]:
-        long_covid_names.append(criteria.replace("\\\\", "\\"))
+    for criteria in exclusion_criteria["terms_1"]:
+        terms_1_list.append(criteria.replace("\\\\", "\\"))
 
-    for criteria in exclusion_criteria["accepted_disease_terms"]:
-        accepted_disease_terms.append(criteria.replace("\\\\", "\\"))
+    for criteria in exclusion_criteria["terms_2"]:
+        terms_2_list.append(criteria.replace("\\\\", "\\"))
 
 with open(os.path.join(os.path.join(correct_dir, input_path), "export.json"), 'r', encoding="UTF-8") as input_file:
     lines = json.loads(input_file.read())
@@ -56,33 +56,32 @@ with open(os.path.join(os.path.join(correct_dir, input_path), "export.json"), 'r
     
     for line in lines:
         data = lines[line]
+        
+        # Clean the authors field of (n)
+        data["Authors"] = regex.sub(r"\(\d+\)", "", data["Authors"])
 
         abstract = data["Abstract"]
         pmid = data["PMID"]
 
         # Article filtering starts here
 
-        passed_long_covid_check = False
-        passed_accepted_disease_terms_check = False
+        passed_term_1_check = False
+        passed_term_2_check = False
 
-        for re in long_covid_names:
+        for re in terms_1_list:
             found_in = regex.findall(" " + re + " ", abstract.casefold())
             if found_in:
-                # PCS can also mean physical component score
-                if re == ("pcs" or "pasc" or "pacs"):
-                    if not regex.findall(" covid.?\d* ", abstract.casefold()):
-                        continue
-                passed_long_covid_check = True
+                passed_term_1_check = True
 
-        if passed_long_covid_check == False:
+        if passed_term_1_check == False:
             continue
 
-        for re in accepted_disease_terms:
+        for re in terms_2_list:
             found_in = regex.findall(" " + re + " ", abstract.casefold())
             if found_in:
-                passed_accepted_disease_terms_check = True
+                passed_term_2_check = True
 
-        if passed_accepted_disease_terms_check == False:
+        if passed_term_2_check == False:
             continue
 
         # Article filtering ends here

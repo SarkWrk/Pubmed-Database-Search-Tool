@@ -4,10 +4,11 @@
 
 *To use the programme:*
 
-1. Add your search queries in ./settings/queries.json. (Change databases by modifying "db" and change the amount of abstracts retrieved per query by modifying "max_retrievals_per_get".)
-2. Change the regex strings in 'exclusion_criteria' in ./settings/setings.json to the values you want. (Optionally, change the code for the article filtering in ./modules/exclusion.py to fit your needs)
-3. Run main.py.
-4. Results are in ./wanted/{YYYY-MM-DD}.json.
+1. Install the `requests` module.
+2. Add your search queries in ./settings/queries.json. (Change databases by modifying "db" and change the amount of abstracts retrieved per query by modifying "max_retrievals_per_get".)
+3. Change the regex strings in 'exclusion_criteria' in ./settings/setings.json to the values you want. (Optionally, change the code for the article filtering in ./modules/exclusion.py to fit your needs)
+4. Run main.py.
+5. Results are in ./wanted/{YYYY-MM-DD}.json.
 
 ***
 *Programme information:*
@@ -26,7 +27,7 @@ Log levels are as followed:
     /-duplicate_remover.py  # Removes duplicate articles and combines all unique articles into ./out/export.json
     /-exclusion.py          # Uses regex to exclude unwanted articles from ./out/export.json; the unexcluded articles will be put in ./wanted/{YYYY-MM-DD}.json
     /-formatter.py          # Parses each text file created from ./modules/server_query.py and creates a json formatted version of the file in ./out with the same name
-    /-server_query.py       # Queries E-Utilities to obtain abstracts from PubMed and puts the results in ./in (with the WebEnv as its name)
+    /-server_query.py       # Queries E-Utilities to obtain abstracts from PubMed and puts the results in ./in (with the hash of the text output as its name)
 |-settings/
     /-queries.json          # Query settings/parameters go here
     /-settings.json         # File used for various information (e.g. paths, logging level, regex used in ./modules/exclusion.py)

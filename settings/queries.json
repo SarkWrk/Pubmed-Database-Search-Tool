@@ -1,7 +1,6 @@
 {
     
-    "new_query": [
-        ""
+    "new_queries": [
     ],
     "db": "pubmed",
     "max_retrievals_per_get": 500
